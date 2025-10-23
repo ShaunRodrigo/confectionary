@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('confections', function (Blueprint $table) {
             $table->id();
+            $table->string('cname');
+            $table->string('type');
+            $table->boolean('prizewinning');
             $table->timestamps();
         });
     }

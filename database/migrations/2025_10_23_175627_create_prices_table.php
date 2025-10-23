@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('confid');
+            $table->integer('price');
+            $table->string('unit');
             $table->timestamps();
+
+            $table->foreign('confid')->references('id')->on('confections')->onDelete('cascade');
         });
     }
 

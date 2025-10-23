@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('confid');
+            $table->string('free');
             $table->timestamps();
+
+            $table->foreign('confid')->references('id')->on('confections')->onDelete('cascade');
         });
     }
 
