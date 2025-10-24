@@ -16,10 +16,17 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#intro">Intro</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="{{ route('Our Products') }}">Products</a></li>
+                <li><a href="#graph">Graph</a></li>
+                @auth
+                    <li><a href="#messages">Messages</a></li>
+                    @if(auth()->user()->role === 'admin')
+                        <li><a href="#crud">Manage Products</a></li>
+                        <li><a href="#admin">Admin</a></li>
+                    @endif
+                @endauth
             </ul>
         </nav>
     </header>
@@ -27,25 +34,11 @@
     <!-- Main -->
     <div id="main">
 
-        <!-- Intro -->
-        <article id="intro">
-            <h2 class="major">Intro</h2>
+        <!-- Home -->
+        <article id="home">
+            <h2 class="major">Welcome</h2>
             <span class="image main"><img src="{{ asset('images/pic01.jpg') }}" alt="" /></span>
             <p>Welcome to our dessert studio. We blend tradition and creativity to craft unforgettable confections.</p>
-        </article>
-
-        <!-- Work -->
-        <article id="work">
-            <h2 class="major">Work</h2>
-            <span class="image main"><img src="{{ asset('images/pic02.jpg') }}" alt="" /></span>
-            <p>Explore our handcrafted sweets, from velvety ganache to crunchy pralines. Each piece is a work of edible art.</p>
-        </article>
-
-        <!-- About -->
-        <article id="about">
-            <h2 class="major">About</h2>
-            <span class="image main"><img src="{{ asset('images/pic03.jpg') }}" alt="" /></span>
-            <p>We’re a boutique dessert studio specializing in artisan confections. Made with love and legacy.</p>
         </article>
 
         <!-- Contact -->
@@ -78,6 +71,39 @@
                 <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
             </ul>
         </article>
+
+        <!-- Database -->
+        
+
+
+        <!-- Graph -->
+        <article id="graph">
+            <h2 class="major">Sales Overview</h2>
+            <canvas id="salesChart"></canvas>
+        </article>
+
+        <!-- Messages (only for logged-in users) -->
+        @auth
+        <article id="messages">
+            <h2 class="major">Messages</h2>
+            <p>View messages submitted through the contact form.</p>
+        </article>
+        @endauth
+
+        <!-- CRUD (only for admin) -->
+        @auth
+            @if(auth()->user()->role === 'admin')
+                <article id="crud">
+                    <h2 class="major">Manage Products</h2>
+                    <p>Admin-only CRUD interface for managing product records.</p>
+                </article>
+
+                <article id="admin">
+                    <h2 class="major">Admin Panel</h2>
+                    <p>Admin-only tools and settings.</p>
+                </article>
+            @endif
+        @endauth
     </div>
 
     <!-- Footer -->
