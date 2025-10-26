@@ -11,6 +11,7 @@
         <div class="content">
             <div class="inner">
                 <h1>Confectionary Delights</h1>
+                <p>Welcome,@auth {{ auth()->user()->name }}! @else Guest! @endauth</p>
                 <p>Handcrafted sweets, timeless recipes, and a sprinkle of magic.</p>
             </div>
         </div>
@@ -20,12 +21,25 @@
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="{{ route('Our Products') }}">Products</a></li>
                 <li><a href="#graph">Graph</a></li>
+
+                @guest
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                @endguest
+
+
                 @auth
                     <li><a href="#messages">Messages</a></li>
                     @if(auth()->user()->role === 'admin')
                         <li><a href="#crud">Manage Products</a></li>
                         <li><a href="#admin">Admin</a></li>
                     @endif
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                            @csrf
+                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();"style="display: block; min-width: 7.5rem; height: 2.75rem; line-height: 2.75rem; padding: 0 1.25rem 0 1.45rem; text-transform: uppercase; letter-spacing: 0.2rem; font-size: 0.8rem; border-bottom: 0;">Logout</a>
+                        </form>
+                    </li>
                 @endauth
             </ul>
         </nav>
@@ -108,7 +122,7 @@
 
     <!-- Footer -->
     <footer id="footer">
-        <p class="copyright">&copy; Confectionary Delights. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        <p class="copyright">&copy; Confectionary Delights.</p>
     </footer>
 </div>
 
