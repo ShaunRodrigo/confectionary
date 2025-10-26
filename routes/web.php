@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -23,3 +25,5 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.panel');
 });
+
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
