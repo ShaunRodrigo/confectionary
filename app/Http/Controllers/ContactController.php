@@ -13,11 +13,29 @@ class ContactController extends Controller
      */
     public function send(Request $request)
     {
-        $data = $request->validate([
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'name' => 'required|string|min:2|max:255',
             'email' => 'required|email|max:255',
             'message' => 'required|string|min:5',
         ]);
+
+        // If validation fails, redirect back to the previous page keeping the #contact anchor
+        if ($validator->fails()) {
+            $previous = url()->previous();
+            // ensure fragment exists
+            if (strpos($previous, '#') === false) {
+                $previous = $previous . '#contact';
+            } else {
+                // replace existing fragment
+                $previous = preg_replace('/#.*/', '#contact', $previous);
+            }
+
+            return redirect($previous)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $validator->validated();
 
         $message = Message::create([
             'name' => $data['name'],
@@ -38,6 +56,14 @@ class ContactController extends Controller
             // Do not fail the request if mail is not configured; just continue
         }
 
-        return redirect()->back()->with('success', 'Your message was sent. Thank you!');
+        // Redirect back to the contact anchor so the user remains at the contact section
+        $previous = url()->previous();
+        if (strpos($previous, '#') === false) {
+            $previous = $previous . '#contact';
+        } else {
+            $previous = preg_replace('/#.*/', '#contact', $previous);
+        }
+
+        return redirect($previous)->with('success', 'Your message was sent. Thank you!');
     }
 }

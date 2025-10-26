@@ -84,7 +84,7 @@
                 </div>
                 <ul class="actions">
                     <li><input type="submit" value="Send Message" class="primary" /></li>
-                    <li><input type="reset" value="Reset" /></li>
+                    <li><button type="button" id="contact-reset">Reset</button></li>
                 </ul>
             </form>
             <ul class="icons">
@@ -149,4 +149,27 @@
 
 <!-- Background -->
 <div id="bg"></div>
+<script>
+    // Clear the contact form fields and validation messages when the custom Reset button is clicked
+    (function(){
+        var btn = document.getElementById('contact-reset');
+        if (!btn) return;
+        btn.addEventListener('click', function(){
+            var form = this.closest('form');
+            if (!form) return;
+            // clear common editable fields but DO NOT remove hidden inputs (CSRF token)
+            var fields = form.querySelectorAll('input[type=text], input[type=email], textarea, select');
+            fields.forEach(function(f){ f.value = ''; });
+            // clear checkboxes/radios
+            var checks = form.querySelectorAll('input[type=checkbox], input[type=radio]');
+            checks.forEach(function(c){ c.checked = false; });
+            // remove validation error elements with class 'error'
+            var errors = form.querySelectorAll('.error');
+            errors.forEach(function(e){ e.parentNode && e.parentNode.removeChild(e); });
+            // remove success message if present
+            var success = document.querySelector('.success-message');
+            if (success) success.parentNode.removeChild(success);
+        });
+    })();
+</script>
 @endsection
