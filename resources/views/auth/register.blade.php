@@ -2,12 +2,14 @@
 <html>
 <head>
     <title>Register</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #1c1c1c;
+            font-family: 'Source Sans Pro', sans-serif;
+            background: url('/images/registerbg.jpg') no-repeat center center fixed;
+            background-size: cover;
             padding: 40px;
-            color: #f0f0f0;
+            color: #ffffff;
             animation: fadeIn 0.8s ease-in;
         }
 
@@ -17,60 +19,64 @@
         }
 
         h1 {
-            color: #ffdd57;
             text-align: center;
             margin-bottom: 40px;
-            font-size: 3em;
-            font-family: 'Brush Script MT', cursive;
-            text-shadow: 1px 1px #000;
+            font-size: 2.5em;
+            font-weight: 600;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
         }
 
         .form-box {
-            background: #2a2a2a;
-            border: 1px solid #444;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid #ffffff;
             padding: 30px;
-            border-radius: 12px;
-            max-width: 600px;
+            border-radius: 8px;
+            max-width: 500px;
             margin: 0 auto;
-            box-shadow: 0 2px 8px rgba(255,255,255,0.04);
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #ffdd57;
+            margin-bottom: 6px;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
 
         input[type="text"],
         input[type="email"],
         input[type="password"] {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #555;
-            background: #1c1c1c;
-            color: #f0f0f0;
+            border-radius: 4px;
+            border: 1px solid #fff;
+            background: transparent;
+            color: #fff;
+            font-size: 1rem;
         }
 
         input[type="submit"] {
-            background: #ff6f61;
+            background: transparent;
             color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            border: 1px solid #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            transition: background-color 0.3s ease;
         }
 
         input[type="submit"]:hover {
-            background: #e85c50;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .error-list {
-            color: #e74c3c;
+            color: #ff6f61;
             margin-bottom: 20px;
         }
 
