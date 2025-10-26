@@ -58,19 +58,28 @@
         <!-- Contact -->
         <article id="contact">
             <h2 class="major">Contact</h2>
-            <form method="post" action="#">
+
+            @if(session('success'))
+                <div class="success-message">{{ session('success') }}</div>
+            @endif
+
+            <form method="post" action="{{ route('contact.send') }}">
+                @csrf
                 <div class="fields">
                     <div class="field half">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" />
+                        <input type="text" name="name" id="name" value="{{ old('name') }}" />
+                        @error('name') <div class="error">{{ $message }}</div> @enderror
                     </div>
                     <div class="field half">
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email" />
+                        <input type="text" name="email" id="email" value="{{ old('email') }}" />
+                        @error('email') <div class="error">{{ $message }}</div> @enderror
                     </div>
                     <div class="field">
                         <label for="message">Message</label>
-                        <textarea name="message" id="message" rows="4"></textarea>
+                        <textarea name="message" id="message" rows="4">{{ old('message') }}</textarea>
+                        @error('message') <div class="error">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <ul class="actions">
@@ -100,7 +109,19 @@
         @auth
         <article id="messages">
             <h2 class="major">Messages</h2>
-            <p>View messages submitted through the contact form.</p>
+            @if(!empty($messages) && $messages->count())
+                <ul class="messages-list">
+                    @foreach($messages as $m)
+                        <li class="message-item">
+                            <strong>{{ $m->name }}</strong> <small>&lt;{{ $m->email }}&gt;</small>
+                            <div class="message-meta">{{ $m->created_at->format('Y-m-d H:i') }}</div>
+                            <p>{{ $m->body }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <p>No messages yet.</p>
+            @endif
         </article>
         @endauth
 
