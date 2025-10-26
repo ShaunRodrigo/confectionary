@@ -109,7 +109,10 @@
             <label for="password">Password</label>
             <input type="password" name="password" id="password" required />
 
-            <input type="submit" value="Login" />
+            <div class="button-group" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                <input type="submit" name="login_type" value="Login as User" />
+                <input type="submit" name="login_type" value="Login as Admin" style="background: rgba(255,255,255,0.1);" />
+            </div>
         </form>
     </div>
 </body>

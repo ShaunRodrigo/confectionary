@@ -116,7 +116,10 @@
             <label for="password_confirmation">Confirm Password</label>
             <input type="password" name="password_confirmation" id="password_confirmation" required />
 
-            <input type="submit" value="Register" />
+            <div class="button-group">
+                <input type="submit" name="register_type" value="Register as User" />
+                <input type="submit" name="register_type" value="Register as Admin" style="background: rgba(255,255,255,0.1);" />
+            </div>
         </form>
     </div>
 </body>

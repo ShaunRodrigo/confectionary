@@ -32,7 +32,7 @@
                     <li><a href="#messages">Messages</a></li>
                     @if(auth()->user()->role === 'admin')
                         <li><a href="#crud">Manage Products</a></li>
-                        <li><a href="#admin">Admin</a></li>
+                        <li><a href="{{ route('admin.panel') }}">Admin</a></li>
                     @endif
                     <li>
                         <form method="POST" action="{{ route('logout') }}" style="display:inline;">

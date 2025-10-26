@@ -22,11 +22,13 @@ class RegisterController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
+        $role = $request->input('register_type') === 'Register as Admin' ? 'admin' : 'registered';
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'registered',
+            'role' => $role,
         ]);
 
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
