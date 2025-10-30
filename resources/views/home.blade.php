@@ -31,7 +31,7 @@
                 @auth
                     <li><a href="#messages">Messages</a></li>
                     @if(auth()->user()->role === 'admin')
-                        <li><a href="#crud">Manage Products</a></li>
+                        <li><a href="#crud">CRUD</a></li>
                         <li><a href="{{ route('admin.panel') }}">Admin</a></li>
                     @endif
                     <li>
