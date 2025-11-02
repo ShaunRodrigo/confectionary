@@ -102,7 +102,12 @@
         <!-- Graph -->
         <article id="graph">
             <h2 class="major">Sales Overview</h2>
-            <canvas id="salesChart"></canvas>
+            <div style="max-width:800px;margin:0 auto;position:relative;">
+                <canvas id="salesChart" width="800" height="360" style="width:100%;height:360px;display:block;"></canvas>
+                <div id="chartPlaceholder" style="position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+                    <div id="chartPlaceholderInner" style="background:rgba(0,0,0,0.55);color:#fff;padding:12px 18px;border-radius:6px;display:none;">No data available</div>
+                </div>
+            </div>
         </article>
 
         <!-- Messages (only for logged-in users) -->
@@ -149,6 +154,67 @@
 
 <!-- Background -->
 <div id="bg"></div>
+<!-- Chart.js and chart rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var canvasEl = document.getElementById('salesChart');
+    var placeholderInner = document.getElementById('chartPlaceholderInner');
+    if (!canvasEl) return;
+
+    // Keep fixed pixel size to avoid layout-driven expansion when Chart has no data
+    canvasEl.width = 800;
+    canvasEl.height = 360;
+
+    fetch('{{ route('chart.data') }}')
+        .then(function(res){ return res.json(); })
+        .then(function(json){
+            var labels = json.labels || [];
+            var data = json.data || [];
+            var isEmpty = !!json.empty || labels.length === 0 || data.length === 0;
+
+            if (isEmpty) {
+                // Show a friendly overlay message and do not instantiate Chart.js
+                if (placeholderInner) {
+                    placeholderInner.textContent = json.message || 'No data available';
+                    placeholderInner.style.display = 'block';
+                }
+                return;
+            }
+
+            var ctx2 = canvasEl.getContext('2d');
+
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Confections by Type',
+                        data: data,
+                        backgroundColor: 'rgba(108,99,255,0.8)',
+                        borderColor: 'rgba(108,99,255,1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    // keep aspect ratio based on canvas width/height attributes
+                    maintainAspectRatio: true,
+                    aspectRatio: 800/360,
+                    scales: {
+                        y: { beginAtZero: true, precision:0 }
+                    }
+                }
+            });
+        }).catch(function(err){
+            console.error('Chart load error', err);
+            if (placeholderInner) {
+                placeholderInner.textContent = 'Unable to load chart data';
+                placeholderInner.style.display = 'block';
+            }
+        });
+});
+</script>
 <script>
     // Clear the contact form fields and validation messages when the custom Reset button is clicked
     (function(){

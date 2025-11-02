@@ -8,6 +8,7 @@ class Content extends Model
 {
     public function confection()
     {
-        return $this->belongsTo(Confection::class);
+        // the foreign key in the contents table is `confid` (not confection_id)
+        return $this->belongsTo(Confection::class, 'confid');
     }
 }

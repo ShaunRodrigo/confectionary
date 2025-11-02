@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\MessageController;
 
 
@@ -33,6 +34,9 @@ Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 });
+
+// Chart data for graph (used by Chart.js)
+Route::get('/chart/data', [ChartController::class, 'data'])->name('chart.data');
 
 // Admin-only message management (edit/update/delete)
 Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function () {
