@@ -1,4 +1,10 @@
 <style>
+
+    body {
+        background: url('/images/crudbg.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
     .form-box {
         max-width: 600px;
         margin: 40px auto;
@@ -55,8 +61,13 @@
 
     .btn-primary { background-color: #00a8e8; color: #fff; }
     .btn-secondary { background-color: #888; color: #fff; }
+    .btn-third {
+        background-color: #ffdd57;
+        color: #000;
+    }
 </style>
 
+<body>
 <div class="form-box">
     <h1>{{ $title }}</h1>
 
@@ -91,4 +102,6 @@
         <button type="submit" class="btn btn-primary">{{ $method === 'PUT' ? 'Update' : 'Create' }}</button>
         <a href="{{ route('confections_manage.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
+    <a href="{{ route('confections_manage.index') }}" class="btn btn-third">← Back to Database</a>
 </div>
+</body>

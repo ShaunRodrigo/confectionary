@@ -128,22 +128,7 @@
                 <p>No messages yet.</p>
             @endif
         </article>
-        @endauth
-
-        <!-- CRUD (only for admin) -->
-        @auth
-            @if(auth()->user()->role === 'admin')
-                <article id="crud">
-                    <h2 class="major">Manage Products</h2>
-                    <p>Admin-only CRUD interface for managing product records.</p>
-                </article>
-
-                <article id="admin">
-                    <h2 class="major">Admin Panel</h2>
-                    <p>Admin-only tools and settings.</p>
-                </article>
-            @endif
-        @endauth
+        @endauth    
     </div>
 
     <!-- Footer -->

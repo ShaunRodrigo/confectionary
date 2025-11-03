@@ -3,7 +3,7 @@
 <style>
     body {
         font-family: 'Source Sans Pro', sans-serif;
-        background: url('/images/adminbg.jpg') no-repeat center center fixed;
+        background: url('/images/crudbg.jpg') no-repeat center center fixed;
         background-size: cover;
         color: #fff;
         animation: fadeIn 0.8s ease-in;
@@ -69,6 +69,11 @@
     .btn-primary { background-color: #00a8e8; color: #fff; }
     .btn-danger { background-color: #ff6f61; color: #fff; }
     .btn-create { background-color: #6c63ff; color: #fff; margin-bottom: 20px; display: inline-block; }
+    .btn-secondary {
+        background-color: #ffdd57;
+        color: #000;
+    }
+
 
     
 </style>
@@ -88,6 +93,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Type</th>
+                <th>Prizewinning</th>
                 <th>Created</th>
                 <th>Actions</th>
             </tr>
@@ -98,6 +104,7 @@
                     <td>{{ $c->id }}</td>
                     <td>{{ $c->cname }}</td>
                     <td>{{ $c->type }}</td>
+                    <td>{{ $c->prizewinning }}</td>
                     <td>{{ $c->created_at }}</td>
                     <td>
                         <a href="{{ route('confections_manage.edit', $c) }}" class="btn btn-primary">Edit</a>
@@ -111,6 +118,9 @@
             @endforeach
         </tbody>
     </table>
+
+    <a href="{{ route('home') }}" class="btn btn-secondary">← Back to Main Page</a>
+
 
 </div>
 

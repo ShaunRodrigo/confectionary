@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Confectionery List</title>
-    <style>
+<title>Confectionery List</title>
+<a href="{{ route('home') }}" class="btn btn-secondary">← Back to Main Page</a>
+<style>
         body {
     font-family: 'Segoe UI', sans-serif;
     background: #1c1c1c;
@@ -103,7 +104,27 @@ h1 {
     background-color: #333;
 }
 
-    </style>
+.btn-secondary {
+    background-color: #ffdd57;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #ffe88c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+</style>
 </head>
 <body>
     <h1>Confectionery List</h1>
@@ -115,6 +136,8 @@ h1 {
         <strong>HC</strong> = High-calcium<br>
         <strong>Te</strong> = Contains eggs
     </div>
+
+    
 
     @foreach ($confections as $conf)
         <div class="confection">
