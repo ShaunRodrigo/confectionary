@@ -1,0 +1,94 @@
+<style>
+    .form-box {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #fff;
+        color: #fff;
+    }
+
+    .form-box h1 {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        background: transparent;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    .checkbox-group {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        text-decoration: none;
+        margin-right: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary { background-color: #00a8e8; color: #fff; }
+    .btn-secondary { background-color: #888; color: #fff; }
+</style>
+
+<div class="form-box">
+    <h1>{{ $title }}</h1>
+
+    @if($errors->any())
+        <ul style="color: #ff6f61;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form method="POST" action="{{ $action }}">
+        @csrf
+        @if($method === 'PUT')
+            @method('PUT')
+        @endif
+
+        <label for="cname">Name</label>
+        <input type="text" name="cname" id="cname" value="{{ old('cname', $confection->cname ?? '') }}" required>
+
+        <label for="type">Type</label>
+        <input type="text" name="type" id="type" value="{{ old('type', $confection->type ?? '') }}" required>
+
+        <div class="checkbox-group">
+            <label>
+                <input type="checkbox" name="prizewinning" value="1"
+                    {{ old('prizewinning', $confection->prizewinning ?? false) ? 'checked' : '' }}>
+                Prizewinning
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ $method === 'PUT' ? 'Update' : 'Create' }}</button>
+        <a href="{{ route('confections_manage.index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

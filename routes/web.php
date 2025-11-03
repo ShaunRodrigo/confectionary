@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ConfectionCrudController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -46,3 +47,7 @@ Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function
 });
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function () {
+    Route::resource('confections_manage', ConfectionCrudController::class);
+});
