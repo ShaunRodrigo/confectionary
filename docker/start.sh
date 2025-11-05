@@ -12,6 +12,13 @@ if [ -n "${PORT:-}" ] && [ -f /etc/nginx/conf.d/default.conf ]; then
   sed -i "s/listen 10000;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf || true
 fi
 
-# start php-fpm and nginx
+# Run migrations at startup (safe: will be skipped if already applied or fails)
+php artisan migrate --force || true
+
+# start php-fpm (background) and nginx (foreground)
 php-fpm -D
-nginx -g 'daemon off;'
+nginx -g 'daemon off;' &
+
+# Tail logs to stdout so Render shows them (helps debug without shell access)
+tail -n +1 -F /var/log/nginx/error.log /var/log/nginx/access.log /app/storage/logs/laravel.log 2>/dev/null &
+wait

@@ -2,10 +2,8 @@
 FROM node:22-bullseye AS node-builder
 WORKDIR /app
 
-# copy only files needed for npm install/build to take advantage of cache
-COPY package*.json ./
-COPY package-lock.json* ./
-COPY vite.config.js ./
+# copy package files & vite config for better cache
+COPY package*.json package-lock.json* vite.config.js ./
 # copy resource files required by vite
 COPY resources resources
 
@@ -16,7 +14,10 @@ RUN npm run build
 FROM php:8.2-fpm-bullseye AS php-base
 WORKDIR /app
 
-# System dependencies
+# Avoid Composer OOM in some environments
+ENV COMPOSER_MEMORY_LIMIT=-1
+
+# System dependencies (add libpq-dev for PostgreSQL)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     unzip \
@@ -25,14 +26,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
+    libpq-dev \
     nginx \
     ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-# PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+# PHP extensions: include both MySQL and Postgres drivers
+RUN docker-php-ext-install pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip
 
-# Install composer
+# Install composer binary
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copy application source
@@ -44,7 +46,7 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 # Copy built frontend assets from node stage
 COPY --from=node-builder /app/public/build /app/public/build
 
-# Ensure storage & cache dirs exist and set permissions
+# Ensure storage & bootstrap cache exist and set permissions
 RUN mkdir -p /app/storage /app/bootstrap/cache \
  && chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/public \
  && chmod -R a+rw /app/storage /app/bootstrap/cache /app/public
@@ -58,9 +60,5 @@ RUN chmod +x /start.sh
 ENV PORT=10000
 EXPOSE 10000
 
-# Run Laravel migrations automatically
-RUN php artisan migrate --force || true
-
-# Start php-fpm and nginx
+# Start php-fpm and nginx (start.sh handles migrations & log forwarding)
 CMD ["/start.sh"]
-
