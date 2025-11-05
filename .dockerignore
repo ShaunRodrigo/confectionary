@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Node / Frontend
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Composer dependencies (will be reinstalled in container)
+vendor
+
+# Laravel specific
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Environment and config
+.env
+.env.*
+.idea
+.vscode
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+
+# Docker files themselves
+Dockerfile
+docker-compose.yml
+docker/
