@@ -58,5 +58,9 @@ RUN chmod +x /start.sh
 ENV PORT=10000
 EXPOSE 10000
 
+# Run Laravel migrations automatically
+RUN php artisan migrate --force || true
+
 # Start php-fpm and nginx
 CMD ["/start.sh"]
+
