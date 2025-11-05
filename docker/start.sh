@@ -12,6 +12,11 @@ if [ -n "${PORT:-}" ] && [ -f /etc/nginx/conf.d/default.conf ]; then
   sed -i "s/listen 10000;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf || true
 fi
 
+# Ensure PHP-FPM listens on TCP 127.0.0.1:9000 (not a unix socket)
+if [ -f /usr/local/etc/php-fpm.d/www.conf ]; then
+  sed -i "s|^listen = .*|listen = 127.0.0.1:9000|g" /usr/local/etc/php-fpm.d/www.conf || true
+fi
+
 # Run migrations at startup (safe: will be skipped if already applied or fails)
 php artisan migrate --force || true
 
