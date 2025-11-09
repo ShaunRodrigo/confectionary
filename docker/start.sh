@@ -20,6 +20,9 @@ fi
 # Run migrations at startup (safe: will be skipped if already applied or fails)
 php artisan migrate --force || true
 
+# Run custom seeder to load data from .txt files
+php artisan db:seed --class=ConfectionSeeder || true
+
 # Clear Laravel caches to avoid stale APP_URL or asset paths
 php artisan config:clear || true
 php artisan cache:clear || true
