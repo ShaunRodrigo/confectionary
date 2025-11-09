@@ -9,6 +9,7 @@ use App\Models\Price;
 
 class ConfectionSeeder extends Seeder
 {
+    
     public function run(): void
     {
         // Seed confections

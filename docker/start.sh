@@ -21,7 +21,8 @@ fi
 php artisan migrate --force || true
 
 # Run custom seeder to load data from .txt files
-php artisan db:seed --class=ConfectionSeeder || true
+echo "Running DatabaseSeeder..."
+php artisan db:seed || echo "Seeder failed or skipped"
 
 # Clear Laravel caches to avoid stale APP_URL or asset paths
 php artisan config:clear || true
