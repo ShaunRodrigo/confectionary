@@ -1,16 +1,17 @@
 id  confid  price   unit
-1   1   8   AED/pce
-2   2   12  AED/box
-3   3   18  AED/6 pcs
-4   4   25  AED/box
-5   5   6   AED/pce
-6   6   20  AED/slice
-7   7   10  AED/3 pcs
-8   8   15  AED/box
-9   9   14  AED/box
-10  10  22  AED/2 pcs
-11  11  30  AED/plate
-12  12  9   AED/pce
-13  13  16  AED/box
-14  14  24  AED/slice
-15  15  28  AED/bowl
+101 1 8 AED/pce
+102 2 12 AED/box
+103 3 18 AED/6 pcs
+104 4 25 AED/box
+105 5 6 AED/pce
+106 6 20 AED/slice
+107 7 10 AED/3 pcs
+108 8 15 AED/box
+109 9 14 AED/box
+110 10 22 AED/2 pcs
+111 11 30 AED/plate
+112 12 9 AED/pce
+113 13 16 AED/box
+114 14 24 AED/slice
+
+115 15 28 AED/bowl
