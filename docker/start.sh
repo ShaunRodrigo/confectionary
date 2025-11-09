@@ -22,7 +22,7 @@ php artisan migrate --force || true
 
 # Run custom seeder to load data from .txt files
 echo "Running DatabaseSeeder..."
-php artisan db:seed || echo "Seeder failed or skipped"
+php artisan db:seed --force || echo "Seeder failed or skipped"
 
 # Clear Laravel caches to avoid stale APP_URL or asset paths
 php artisan config:clear || true
