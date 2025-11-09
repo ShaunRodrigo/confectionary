@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Models\Confection;
 use App\Models\Content;
 use App\Models\Price;
@@ -11,11 +13,11 @@ class ConfectionSeeder extends Seeder
 {
     public function run(): void
     {
-        \Log::info('ConfectionSeeder started');
+        Log::info('ConfectionSeeder started');
 
         // Seed confections
         $confectionLines = file(storage_path('app/confections.txt'), FILE_IGNORE_NEW_LINES);
-        \Log::info('Loaded confections.txt with ' . count($confectionLines) . ' lines');
+        Log::info('Loaded confections.txt with ' . count($confectionLines) . ' lines');
 
         $count = 0;
         foreach (array_slice($confectionLines, 1) as $line) {
@@ -35,11 +37,11 @@ class ConfectionSeeder extends Seeder
             ]);
             $count++;
         }
-        \Log::info("Seeded $count confections");
+        Log::info("Seeded $count confections");
 
         // Seed contents
         $contentLines = file(storage_path('app/contents.txt'), FILE_IGNORE_NEW_LINES);
-        \Log::info('Loaded contents.txt with ' . count($contentLines) . ' lines');
+        Log::info('Loaded contents.txt with ' . count($contentLines) . ' lines');
 
         $count = 0;
         foreach (array_slice($contentLines, 1) as $line) {
@@ -56,11 +58,11 @@ class ConfectionSeeder extends Seeder
             ]);
             $count++;
         }
-        \Log::info("Seeded $count contents");
+        Log::info("Seeded $count contents");
 
         // Seed prices
         $priceLines = file(storage_path('app/prices.txt'), FILE_IGNORE_NEW_LINES);
-        \Log::info('Loaded prices.txt with ' . count($priceLines) . ' lines');
+        Log::info('Loaded prices.txt with ' . count($priceLines) . ' lines');
 
         $count = 0;
         foreach (array_slice($priceLines, 1) as $line) {
@@ -78,8 +80,19 @@ class ConfectionSeeder extends Seeder
             ]);
             $count++;
         }
-        \Log::info("Seeded $count prices");
+        Log::info("Seeded $count prices");
 
-        \Log::info('ConfectionSeeder finished');
+
+        $driver = DB::getDriverName();
+
+        if ($driver === 'mysql') {
+            DB::statement("ALTER TABLE confections AUTO_INCREMENT = 1000;");
+            Log::info('Reset MySQL AUTO_INCREMENT to 1000');
+        } elseif ($driver === 'pgsql') {
+            DB::statement("SELECT setval('confections_id_seq', 1000);");
+            Log::info('Reset PostgreSQL sequence to 1000');
+        }
+
+        Log::info('ConfectionSeeder finished');
     }
 }
