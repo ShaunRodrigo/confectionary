@@ -1,16 +1,16 @@
 id  cname   type    prizewinning
-101 Gulab Jamun Indian sweet 1
-102 Mochi Japanese rice cake 0
-103 Macaron French pastry 1
-104 Baklava Middle Eastern dessert 1
-105 Donut American pastry 0
-106 Tiramisu Italian dessert 1
-107 Churros Spanish pastry 0
-108 Barfi Indian sweet 0
-109 Daifuku Japanese sweet 0
-110 Eclair French pastry 1
-111 Knafeh Middle Eastern dessert 1
-112 Peda Indian sweet 0
-113 Wagashi Japanese sweet 0
-114 Mille-feuille French pastry 1
-115 Sticky Toffee Pudding British dessert 0
+1 Gulab Jamun Indian sweet 1
+2 Mochi Japanese rice cake 0
+3 Macaron French pastry 1
+4 Baklava Middle Eastern dessert 1
+5 Donut American pastry 0
+6 Tiramisu Italian dessert 1
+7 Churros Spanish pastry 0
+8 Barfi Indian sweet 0
+9 Daifuku Japanese sweet 0
+10 Eclair French pastry 1
+11 Knafeh Middle Eastern dessert 1
+12 Peda Indian sweet 0
+13 Wagashi Japanese sweet 0
+14 Mille-feuille French pastry 1
+15 Sticky Toffee Pudding British dessert 0
